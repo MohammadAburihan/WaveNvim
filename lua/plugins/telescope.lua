@@ -22,4 +22,13 @@ return {
 			require("telescope").load_extension("ui-select")
 		end,
 	},
+	{
+		"sudormrfbin/cheatsheet.nvim",
+		dependencies = { "nvim-lua/popup.nvim" },
+		config = function()
+			require("cheatsheet").setup({
+				vim.keymap.set("n", "<leader>cc", ":Cheatsheet<CR>", { desc = "Cheatsheet shortcuts" }),
+			})
+		end,
+	},
 }
