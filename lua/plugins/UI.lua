@@ -41,7 +41,7 @@ return {
 			"MunifTanjim/nui.nvim",
 		},
 		config = function()
-			vim.keymap.set("n", "<C-n>", ":Neotree filesystem reveal left<CR>", {})
+			vim.keymap.set("n", "<C-n>", ":Neotree filesystem reveal left<CR>", { desc = "NeoTree" })
 		end,
 	},
 	{
@@ -174,13 +174,31 @@ return {
 		},
 	},
 	{
-		"lukas-reineke/indent-blankline.nvim", -- for indent perantheses and color it
+		"echasnovski/mini.indentscope", -- For indent perantheses and color it
+		version = false, -- wait till new 0.7.0 release to put it back on semver
+		opts = {
+			-- symbol = '╎',
+			symbol = "│",
+			options = { try_as_border = true },
+		},
+	},
+	{
+		"lukas-reineke/indent-blankline.nvim",
 		main = "ibl",
 		---@module "ibl"
 		---@type ibl.config
-		opts = {},
+		opts = {
+			scope = { enabled = false },
+			indent = { char = "│" },
+		},
+	},
+	{
+		"sudormrfbin/cheatsheet.nvim",
+		dependencies = { "nvim-lua/popup.nvim" },
 		config = function()
-			require("ibl").setup()
+			require("cheatsheet").setup({
+				vim.keymap.set("n", "<leader>cc", ":Cheatsheet<CR>", { desc = "Cheatsheet shortcuts" }),
+			})
 		end,
 	},
 }

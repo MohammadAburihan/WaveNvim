@@ -55,7 +55,7 @@ autocmd FileType cpp nnoremap <F2> :call InputOutputFile()<CR>
 function! RunVerilog()
   let fileName = expand('%')
   if fileName =~ '\.sv$'
-    let exeName = substitute(fileName, '\.sv$', '', '')
+    let exeName = substitute(expand("%:t"), '\.sv$', '', '')
     execute '!obj_dir/V' . exeName . ' > output.out 2>&1'
   else
     echo 'Not a SV file'
