@@ -9,7 +9,8 @@ set shiftwidth=2
 set splitright
 set splitbelow
 set undofile
-
+set clipboard=unnamedplus
+"
 " begin for C++ Run and execute
 "
 " Set C++ file type
