@@ -2,6 +2,7 @@ return {
 	{
 		"catppuccin/nvim",
 		-- lazy = false,
+		-- Hello
 		name = "catppuccin",
 		priority = 1000,
 		config = function()
