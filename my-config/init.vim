@@ -10,6 +10,12 @@ set splitright
 set splitbelow
 set undofile
 set clipboard=unnamedplus
+
+" because when i opened a terminal it cause a buffer still running error when
+" i try to use wqa
+"
+" command Z wa | qa
+" cabbrev wqa Z
 "
 " begin for C++ Run and execute
 "

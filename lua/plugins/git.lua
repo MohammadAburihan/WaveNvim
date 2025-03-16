@@ -1,8 +1,8 @@
 return {
 	"voldikss/vim-floaterm",
 	config = function()
-		vim.cmd([[let g:floaterm_width=0.8]])
-		vim.cmd([[let g:floaterm_height=0.8]])
+		vim.cmd([[let g:floaterm_width=0.85]])
+		vim.cmd([[let g:floaterm_height=0.85]])
 		vim.cmd([[let g:floaterm_autoclose=1]])
 		require("which-key").add({ { "<leader>t", group = "Terminal" } })
 		vim.keymap.set(
