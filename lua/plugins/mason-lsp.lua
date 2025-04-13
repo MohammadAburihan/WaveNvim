@@ -25,8 +25,9 @@ return {
 		config = function()
 			require("configs.lspconfig")
 			vim.keymap.set("n", "<leader>lh", vim.lsp.buf.hover, { desc = "lsp Hover" })
-			vim.keymap.set("n", "<leader>ld", vim.lsp.buf.definition, { desc = "lsp Definition" })
 			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })
+			vim.keymap.set("n", "<leader>lD", vim.lsp.buf.declaration, { desc = "lsp declaration" })
+			vim.keymap.set("n", "<leader>ld", vim.lsp.buf.definition, { desc = "lsp Definition" })
 		end,
 	},
 	{

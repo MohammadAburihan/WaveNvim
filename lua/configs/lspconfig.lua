@@ -1,5 +1,5 @@
 local lspconfig = require("lspconfig")
-local servers = { "svlangserver", "lua_ls", "asm_lsp", "clangd" }
+local servers = { "svlangserver", "lua_ls", "asm_lsp" }
 local capabilities = require("cmp_nvim_lsp").default_capabilities()
 local nlspsettings = require("nlspsettings")
 local on_attach = function(client, bufnr)
@@ -14,6 +14,16 @@ for _, lsp in ipairs(servers) do
 end
 
 nlspsettings.setup({})
+
+lspconfig.clangd.setup({
+	capabilities = capabilities,
+	on_attach = on_attach,
+	cmd = { "clangd", "--background-index", "--clang-tidy", "--log=verbose" },
+	init_options = {
+		fallbackFlags = { "-std=c++23" },
+		compileFlags = {},
+	},
+})
 
 if not require("lspconfig.configs").hdl_checker then
 	require("lspconfig.configs").hdl_checker = {
@@ -33,4 +43,29 @@ if not require("lspconfig.configs").hdl_checker then
 	}
 end
 
-require("lspconfig").hdl_checker.setup({})
+-- lspconfig.omnisharp.setup({
+-- 	cmd = { "dotnet", "/root/.local/share/nvim/mason/packages/omnisharp/libexec/OmniSharp.dll" },
+-- 	filetypes = { "csharp" },
+-- 	settings = {
+-- 		FormattingOptions = {
+-- 			EnableEditorConfigSupport = true,
+-- 			OrganizeImports = nil,
+-- 		},
+-- 		MsBuild = {
+-- 			LoadProjectsOnDemand = nil,
+-- 		},
+-- 		RoslynExtensionsOptions = {
+-- 			EnableAnalyzersSupport = nil,
+-- 			EnableImportCompletion = nil,
+-- 			AnalyzeOpenDocumentsOnly = nil,
+-- 		},
+-- 		Sdk = {
+-- 			IncludePrereleases = true,
+-- 		},
+-- 	},
+-- })
+-- lspconfig.omnisharp_mono.setup({
+-- 	filetypes = { "csharp" },
+-- })
+--
+-- require("lspconfig").hdl_checker.setup({})

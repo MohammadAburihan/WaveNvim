@@ -31,7 +31,8 @@ function! CompileAndRun()
   if fileName =~ '\.cpp$'
     let exeName = substitute(fileName, '\.cpp$', '', '')
     let path = expand("%:p:h")
-    execute 'w | !g++ -DLOCAL -std=c++17 -Wall -Wextra -Wpedantic -O2 -o ' . exeName . ' ' . fileName . ' && ' . path . '/./' . expand("%:t:r")
+    execute 'w | !g++ -DLOCAL -std=c++23 -Wall -Wextra -Wpedantic -O2 -o ' . exeName . ' ' . fileName . ' && ' . path . '/./' . expand("%:t:r")
+    " execute 'w | !g++ -DLOCAL -std=c++23 -w -O2 -o ' . exeName . ' ' . fileName . ' && ' . path . '/./' . expand("%:t:r")
     if v:shell_error == 0
       let cmd = "x-terminal-emulator -e bash -c './" . exeName . "; read -p \"Press enter to exit...\"'"
       call system(cmd)
