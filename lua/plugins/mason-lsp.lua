@@ -1,22 +1,22 @@
 return {
 	{
-		"williamboman/mason.nvim",
-		config = function()
-			require("mason").setup({
-				opts = {
-					ensure_installed = {
-						"clang-format",
-						"codelldb",
-					},
-				},
-			})
-		end,
+	  "williamboman/mason.nvim",
+	  config = function()
+	    require("mason").setup({
+	      opts = {
+	        ensure_installed = {
+	          "clang-format",
+	          "codelldb",
+	        },
+	      },
+	    })
+	  end,
 	},
 	{
 		"williamboman/mason-lspconfig.nvim",
 		config = function()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "clangd", "lua_ls", "svlangserver", "svls", "verible", "asm_lsp" },
+				ensure_installed = { "clangd", "lua_ls", "svlangserver", "verible" },
 			})
 		end,
 	},

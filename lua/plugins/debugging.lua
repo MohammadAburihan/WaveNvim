@@ -67,6 +67,7 @@ return {
 
 			vim.keymap.set("n", "<Leader>dt", dap.toggle_breakpoint, { desc = "Toggle breakpoint" })
 			vim.keymap.set("n", "<Leader>dc", dap.continue, { desc = "Continue" })
+			require("which-key").add({ { "<leader>d", group = "Debugging" } })
 
 			-- Lua version of Debug for C++ files
 			local function Debug()

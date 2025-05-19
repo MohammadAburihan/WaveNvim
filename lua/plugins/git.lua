@@ -11,6 +11,18 @@ return {
 			"<C-\\><C-n>:FloatermToggle<CR>",
 			{ desc = "ToggleTerm", noremap = true, silent = true }
 		)
+		vim.keymap.set(
+			"t",
+			"<leader>tn",
+			"<C-\\><C-n>:FloatermNext<CR>",
+			{ desc = "TermNext", noremap = true, silent = true }
+		)
+		vim.keymap.set(
+			"t",
+			"<leader>tp",
+			"<C-\\><C-n>:FloatermPrev<CR>",
+			{ desc = "TermPrev", noremap = true, silent = true }
+		)
 		vim.keymap.set("n", "<leader>tn", ":FloatermNew<CR>", { desc = "FloatTermNew" })
 		vim.keymap.set("n", "<leader>tt", ":FloatermToggle<CR>", { desc = "ToggleTerm" })
 	end,

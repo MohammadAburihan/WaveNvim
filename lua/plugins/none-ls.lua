@@ -9,5 +9,6 @@ return {
 			return require("configs.null-ls"),
 				vim.keymap.set("n", "<leader>gf", vim.lsp.buf.format, { desc = "Formatting" })
 		end,
+		require("which-key").add({ { "<leader>g", group = "Formatting" } }),
 	},
 }
