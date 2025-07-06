@@ -12,9 +12,9 @@ local opts = {
 	sources = {
 		null_ls.builtins.formatting.clang_format,
 		null_ls.builtins.formatting.stylua,
-		null_ls.builtins.formatting.verible_verilog_format,
-		null_ls.builtins.formatting.csharpier,
-		null_ls.builtins.diagnostics.verilator,
+		-- null_ls.builtins.formatting.verible_verilog_format,
+		-- null_ls.builtins.formatting.csharpier,
+		-- null_ls.builtins.diagnostics.verilator,
 		-- require("none-ls.diagnostics.verilator"),
 	},
 	on_attach = function(client, bufnr)

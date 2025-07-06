@@ -130,4 +130,24 @@ return {
 			})
 		end,
 	},
+	{
+		{
+			"ThePrimeagen/refactoring.nvim",
+			dependencies = {
+				"nvim-lua/plenary.nvim",
+				"nvim-treesitter/nvim-treesitter",
+			},
+			lazy = false,
+			opts = {},
+			config = function()
+				require("refactoring").setup()
+			end,
+		},
+		{
+			"ThePrimeagen/vim-be-good",
+			config = function()
+				-- require("vim-be-good").setup()
+			end,
+		},
+	},
 }

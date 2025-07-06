@@ -4,6 +4,12 @@ return {
 		dependencies = {
 			"rcarriga/nvim-dap-ui",
 			"nvim-neotest/nvim-nio",
+			"williamboman/mason.nvim",
+			opts = function(_, opts)
+				opts.ensure_installed = opts.ensure_installed or {}
+				table.insert(opts.ensure_installed, "java-debug-adapter")
+				table.insert(opts.ensure_installed, "java-test")
+			end,
 		},
 		config = function()
 			local dap = require("dap")
@@ -49,6 +55,25 @@ return {
 						return vim.fn.input("Path to executable: ", vim.fn.getcwd() .. "/", "file")
 					end,
 					cwd = "${workspaceFolder}",
+				},
+			}
+			dap.adapters.java = function(callback)
+				-- FIXME:
+				-- Here a function needs to trigger the `vscode.java.startDebugSession` LSP command
+				-- The response to the command must be the `port` used below
+				callback({
+					type = "server",
+					host = "127.0.0.1",
+					port = 5005,
+				})
+			end
+			dap.configurations.java = {
+				{
+					type = "java",
+					request = "attach",
+					name = "Debug (Attach) - Remote",
+					hostName = "127.0.0.1",
+					port = 5005,
 				},
 			}
 
