@@ -10,6 +10,9 @@ local home = os.getenv("HOME")
 local workspace_path = home .. "/.local/share/nvim/jdtls-workspace/"
 local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
 local workspace_dir = workspace_path .. project_name
+-- local path_to_java_dap =
+-- 	"/Users/mohammadrehan/.m2/repository/com/microsoft/java/com.microsoft.java.debug.plugin/0.53.2/com.microsoft.java.debug.plugin-0.53.2.jar"
+-- local path_to_java_dap = "/Users/mohammadrehan/Downloads/java-debug-main/com.microsoft.java.debug.plugin/target"
 
 local status, jdtls = pcall(require, "jdtls")
 if not status then
@@ -67,7 +70,7 @@ local config = {
 
 	init_options = {
 		bundles = {
-			"/Users/mohammadaburehan/.m2/repository/com/microsoft/java/com.microsoft.java.debug.plugin/0.53.2/com.microsoft.java.debug.plugin-0.53.2.jar",
+			"Users/mohammadrehan/Downloads/java-debug-main/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-0.53.2.jar",
 		},
 	},
 }

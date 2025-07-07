@@ -44,6 +44,22 @@ return {
 		},
 		config = function()
 			vim.keymap.set("n", "<C-n>", ":Neotree filesystem reveal left<CR>", { desc = "NeoTree" })
+
+			require("neo-tree").setup({
+				window = {
+					position = "left",
+					width = 50,
+					mapping_options = {
+						noremap = true,
+						nowait = true,
+					},
+				},
+				filesystem = {
+					follow_current_file = {
+						enabled = true,
+					},
+				},
+			})
 		end,
 	},
 	{
@@ -51,6 +67,19 @@ return {
 		version = "*",
 		dependencies = "nvim-tree/nvim-web-devicons",
 		config = function()
+			vim.keymap.set("n", "<leader>tp", "<Cmd>BufferLinePick<CR>", { silent = true, desc = "Pick buffer" })
+			vim.keymap.set("n", "<leader>tc", "<Cmd>BufferLinePickClose<CR>", { silent = true, desc = "Close buffer" })
+			vim.api.nvim_create_autocmd("BufEnter", {
+				callback = function()
+					local wins = vim.api.nvim_tabpage_list_wins(0)
+					if #wins == 1 then
+						local bufname = vim.api.nvim_buf_get_name(0)
+						if bufname:match("neo%-tree") then
+							vim.cmd("enew") -- open empty buffer
+						end
+					end
+				end,
+			})
 			require("bufferline").setup({
 				options = {
 					diagnostics = "nvim_lsp",
@@ -65,6 +94,14 @@ return {
 							text_align = "left",
 							separator = true,
 						},
+					},
+					hover = {
+						enabled = true,
+						delay = 200,
+						reveal = { "close" },
+					},
+					pick = {
+						alphabet = "abcdefghijklmopqrstuvwxyz",
 					},
 				},
 			})

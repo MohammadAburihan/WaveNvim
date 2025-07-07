@@ -32,7 +32,7 @@ function! CompileAndRun()
   if fileName =~ '\.cpp$'
     let exeName = substitute(fileName, '\.cpp$', '', '')
     let path = expand("%:p:h")
-    execute 'w | !g++ -DLOCAL -std=c++23 -Wall -Wextra -Wpedantic -O2 -o ' . exeName . ' ' . fileName . ' && ' . path . '/./' . expand("%:t:r") . ' < input.in > output.out 2>&1'
+    execute 'w | !g++-15 -DLOCAL -std=c++23 -Wall -Wextra -Wpedantic -O2 -o ' . exeName . ' ' . fileName . ' && ' . path . '/./' . expand("%:t:r") . ' < input.in > output.out 2>&1'
     " execute 'w | !g++ -DLOCAL -std=c++23 -w -O2 -o ' . exeName . ' ' . fileName . ' && ' . path . '/./' . expand("%:t:r")
     "
     "

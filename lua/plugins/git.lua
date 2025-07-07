@@ -4,7 +4,7 @@ return {
 		vim.cmd([[let g:floaterm_width=0.85]])
 		vim.cmd([[let g:floaterm_height=0.85]])
 		vim.cmd([[let g:floaterm_autoclose=1]])
-		require("which-key").add({ { "<leader>t", group = "Terminal" } })
+		require("which-key").add({ { "<leader>t", group = "Terminal & Tabs" } })
 		vim.keymap.set(
 			"t",
 			"<leader>tt",
