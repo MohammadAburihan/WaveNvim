@@ -40,6 +40,7 @@ return {
 		config = function()
 			vim.keymap.set("n", "<leader>tp", "<Cmd>BufferLinePick<CR>", { silent = true, desc = "Pick buffer" })
 			vim.keymap.set("n", "<leader>tc", "<Cmd>BufferLinePickClose<CR>", { silent = true, desc = "Close buffer" })
+			vim.keymap.set("n", "<leader>ta", "<Cmd>%bd|e#|bd#<CR>", { silent = true, desc = "Close all buffer" })
 			vim.api.nvim_create_autocmd("BufEnter", {
 				callback = function()
 					local wins = vim.api.nvim_tabpage_list_wins(0)

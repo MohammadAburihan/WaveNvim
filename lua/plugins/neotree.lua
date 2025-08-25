@@ -1,8 +1,8 @@
 return {
 	-- Tree file explorer
 	"nvim-neo-tree/neo-tree.nvim",
-	branch = "v2.x",
-	dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim", "kyazdani42/nvim-web-devicons" },
+	-- branch = "*",
+	dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim", "nvim-tree/nvim-web-devicons" },
 	config = function()
 		vim.keymap.set("n", "<C-n>", ":Neotree filesystem reveal left<CR>", { desc = "NeoTree" })
 		require("neo-tree").setup({
@@ -46,7 +46,9 @@ return {
 						-- "thumbs.db"
 					},
 				},
-				follow_current_file = true, -- This will find and focus the file in the active buffer every
+				follow_current_file = {
+					enabled = true,
+				},
 				-- time the current file is changed while the tree is open.
 				group_empty_dirs = false, -- when true, empty folders will be grouped together
 				use_libuv_file_watcher = false, -- This will use the OS level file watchers to detect changes

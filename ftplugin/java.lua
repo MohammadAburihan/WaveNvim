@@ -1,3 +1,10 @@
+-- IntelliJ-style formatting
+vim.bo.expandtab = true -- Use spaces instead of tabs
+vim.bo.shiftwidth = 4 -- Number of spaces for each indent
+vim.bo.tabstop = 4 -- Number of spaces a tab counts for
+vim.bo.softtabstop = 4 -- Spaces inserted/deleted with Tab/BS
+vim.bo.smartindent = true -- Enable smart indenting
+vim.bo.autoindent = true -- Auto-indent new lines
 -- local config = {
 -- 	cmd = { vim.fn.expand("/Users/mohammadrehan/.local/share/nvim/mason/bin/jdtls") },
 -- 	root_dir = vim.fs.dirname(vim.fs.find({ "gradlew", ".git", "mvnw" }, { upward = true })[1]),
@@ -14,15 +21,25 @@ local workspace_dir = workspace_path .. project_name
 -- 	"/Users/mohammadrehan/.m2/repository/com/microsoft/java/com.microsoft.java.debug.plugin/0.53.2/com.microsoft.java.debug.plugin-0.53.2.jar"
 -- local path_to_java_dap = "/Users/mohammadrehan/Downloads/java-debug-main/com.microsoft.java.debug.plugin/target"
 
+local cwd = vim.fn.getcwd()
+
+local java_path = "java" -- default
+
+if cwd:find("Apple") then
+	-- java_path = "/Library/Java/JavaVirtualMachines/applejdk-17.0.14.7.3.jdk/Contents/Home/bin/java"
+	java_path = "/Library/Java/JavaVirtualMachines/applejdk-17.0.14.7.3.jdk/Contents/Home/bin/java"
+end
+
 local status, jdtls = pcall(require, "jdtls")
 if not status then
+	print("there is no jdtls")
 	return
 end
 local extendedClientCapabilities = jdtls.extendedClientCapabilities
 
 local config = {
 	cmd = {
-		"java",
+		java_path,
 		"-Declipse.application=org.eclipse.jdt.ls.core.id1",
 		"-Dosgi.bundles.defaultStartLevel=4",
 		"-Declipse.product=org.eclipse.jdt.ls.core.product",
@@ -63,7 +80,7 @@ local config = {
 				},
 			},
 			format = {
-				enabled = false,
+				enabled = true,
 			},
 		},
 	},

@@ -12,6 +12,9 @@ return {
 		-- require("which-key").add({ { "<leader>g", group = "Formatting" } }),
 	},
 	{
+		"MunifTanjim/prettier.nvim",
+	},
+	{
 		"stevearc/conform.nvim",
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
@@ -20,32 +23,37 @@ return {
 			conform.setup({
 				formatters_by_ft = {
 					lua = { "stylua" },
-					svelte = { { "prettierd", "prettier", stop_after_first = true } },
-					astro = { { "prettierd", "prettier", stop_after_first = true } },
-					javascript = { { "prettierd", "prettier", stop_after_first = true } },
-					typescript = { { "prettierd", "prettier", stop_after_first = true } },
-					javascriptreact = { { "prettierd", "prettier", stop_after_first = true } },
-					typescriptreact = { { "prettierd", "prettier", stop_after_first = true } },
-					json = { { "prettierd", "prettier", stop_after_first = true } },
-					graphql = { { "prettierd", "prettier", stop_after_first = true } },
-					java = { "google-java-format" },
+					svelte = { "prettierd", "prettier" },
+					astro = { "prettierd", "prettier" },
+					-- javascript = { "prettierd", "prettier" },
+					-- typescript = { "eslint_d" },
+					-- javascriptreact = { "prettierd", "prettier" },
+					-- typescriptreact = { "eslint_d" },
+					json = { "prettierd", "prettier" },
+					graphql = { "prettierd", "prettier" },
 					kotlin = { "ktlint" },
 					ruby = { "standardrb" },
-					markdown = { { "prettierd", "prettier", stop_after_first = true } },
+					markdown = { "prettierd", "prettier" },
 					erb = { "htmlbeautifier" },
-					html = { "htmlbeautifier" },
+					-- html = { "htmlbeautifier" },
+					html = { "prettier" },
 					bash = { "beautysh" },
 					proto = { "buf" },
 					rust = { "rustfmt" },
 					yaml = { "yamlfix" },
 					toml = { "taplo" },
-					css = { { "prettierd", "prettier", stop_after_first = true } },
-					scss = { { "prettierd", "prettier", stop_after_first = true } },
+					css = { "prettierd", "prettier" },
+					scss = { "prettierd", "prettier" },
 					sh = { "shellcheck" },
 					go = { "gofmt" },
-					xml = { "xmllint" },
+					xml = { "prettier" },
 				},
 				format_on_save = {
+					-- lsp_fallback = function(bufnr)
+					-- 	-- Disable fallback for HTML
+					-- 	local ft = vim.bo[bufnr].filetype
+					-- 	return ft ~= "html"
+					-- end,
 					lsp_fallback = true,
 					timeout_ms = 1000,
 				},
@@ -53,6 +61,11 @@ return {
 
 			vim.keymap.set({ "n", "v" }, "<leader>ft", function()
 				conform.format({
+					-- lsp_fallback = function(bufnr)
+					-- 	-- Disable fallback for HTML
+					-- 	local ft = vim.bo[bufnr].filetype
+					-- 	return ft ~= "html"
+					-- end,
 					lsp_fallback = true,
 					async = false,
 					timeout_ms = 1000,

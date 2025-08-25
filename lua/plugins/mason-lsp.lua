@@ -1,6 +1,7 @@
 return {
 	{
 		"mason-org/mason.nvim",
+		-- version = "^1.0.0",
 		config = function()
 			require("mason").setup()
 			local mason_registry = require("mason-registry")
@@ -31,6 +32,7 @@ return {
 
 	{
 		"mason-org/mason-lspconfig.nvim",
+		-- version = "^1.0.0",
 		config = function()
 			require("mason-lspconfig").setup({
 				ensure_installed = {
@@ -41,6 +43,9 @@ return {
 					"jdtls",
 					"html",
 				},
+				-- handlers = {
+				-- 	jdtls = function() end,
+				-- },
 			})
 		end,
 	},
