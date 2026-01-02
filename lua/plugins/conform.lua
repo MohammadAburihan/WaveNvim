@@ -48,15 +48,15 @@ return {
 					go = { "gofmt" },
 					xml = { "prettier" },
 				},
-				format_on_save = {
-					-- lsp_fallback = function(bufnr)
-					-- 	-- Disable fallback for HTML
-					-- 	local ft = vim.bo[bufnr].filetype
-					-- 	return ft ~= "html"
-					-- end,
-					lsp_fallback = true,
-					timeout_ms = 1000,
-				},
+				-- format_on_save = {
+				-- 	-- lsp_fallback = function(bufnr)
+				-- 	-- 	-- Disable fallback for HTML
+				-- 	-- 	local ft = vim.bo[bufnr].filetype
+				-- 	-- 	return ft ~= "html"
+				-- 	-- end,
+				-- 	lsp_fallback = true,
+				-- 	timeout_ms = 1000,
+				-- },
 			})
 
 			vim.keymap.set({ "n", "v" }, "<leader>ft", function()

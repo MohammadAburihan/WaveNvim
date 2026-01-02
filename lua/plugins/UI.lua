@@ -173,5 +173,15 @@ return {
 			require("scrollbar").setup()
 		end,
 	},
+	-- {
+	-- 	"karb94/neoscroll.nvim",
+	-- 	opts = {},
+	-- },
 	{ "echasnovski/mini.icons", version = false },
+	-- {
+	-- 	"nvim-mini/mini.animate",
+	-- 	config = function()
+	-- 		require("mini.animate").setup()
+	-- 	end,
+	-- },
 }
