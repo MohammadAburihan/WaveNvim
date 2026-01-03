@@ -7,6 +7,21 @@ return {
 		config = function()
 			require("java").setup()
 			vim.lsp.enable("jdtls")
+			vim.lsp.config("jdtls", {
+				settings = {
+					java = {
+						configuration = {
+							runtimes = {
+								{
+									name = "Apple-JavaSE-17.0.16",
+									path = "/Library/Java/JavaVirtualMachines/applejdk-17.0.16.8.1.jdk/Contents/Home",
+									default = true,
+								},
+							},
+						},
+					},
+				},
+			})
 		end,
 	},
 
