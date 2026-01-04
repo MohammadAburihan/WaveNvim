@@ -7,7 +7,7 @@ local on_attach = function(client, bufnr)
 end
 
 for _, lsp in ipairs(servers) do
-	lspconfig[lsp].setup({
+	vim.lsp.config(lsp, {
 		capabilities = capabilities,
 		on_attach = on_attach,
 	})
@@ -15,7 +15,7 @@ end
 
 nlspsettings.setup({})
 
-lspconfig.clangd.setup({
+vim.lsp.config("clangd", {
 	capabilities = capabilities,
 	on_attach = on_attach,
 	cmd = { "clangd", "--background-index", "--clang-tidy", "--log=verbose", "--offset-encoding=utf-16" },
@@ -25,7 +25,7 @@ lspconfig.clangd.setup({
 	},
 })
 
-lspconfig.asm_lsp.setup = {
+vim.lsp.config("asm_lsp", {
 	capabilities = capabilities,
 	on_attach = on_attach,
 	default_config = {
@@ -34,4 +34,4 @@ lspconfig.asm_lsp.setup = {
 		root_dir = lspconfig.util.root_pattern(".git", "."),
 		settings = {},
 	},
-}
+})

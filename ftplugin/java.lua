@@ -27,7 +27,7 @@ local java_path = "java" -- default
 
 if cwd:find("Apple") then
 	-- java_path = "/Library/Java/JavaVirtualMachines/applejdk-17.0.14.7.3.jdk/Contents/Home/bin/java"
-	java_path = "/Library/Java/JavaVirtualMachines/applejdk-17.0.14.7.3.jdk/Contents/Home/bin/java"
+	java_path = "/Library/Java/JavaVirtualMachines/applejdk-17.0.16.8.1.jdk/Contents/Home"
 end
 
 local status, jdtls = pcall(require, "jdtls")
