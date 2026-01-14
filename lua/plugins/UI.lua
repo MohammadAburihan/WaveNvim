@@ -12,6 +12,18 @@ return {
 		end,
 	},
 	{
+		"shaunsingh/nord.nvim",
+	},
+	{
+		"rebelot/kanagawa.nvim",
+	},
+	{
+		"folke/tokyonight.nvim",
+		lazy = false,
+		priority = 1000,
+		opts = {},
+	},
+	{
 		"folke/which-key.nvim", -- For which key press
 		event = "VeryLazy",
 		opts = {
@@ -34,138 +46,179 @@ return {
 			require("lualine").setup()
 		end,
 	},
+	-- {
+	-- 	"akinsho/bufferline.nvim", -- to show the error and warnings in tabs UI
+	-- 	dependencies = { "kyazdani42/nvim-web-devicons", "famiu/bufdelete.nvim" },
+	-- 	config = function()
+	-- 		vim.keymap.set("n", "<leader>tp", "<Cmd>BufferLinePick<CR>", { silent = true, desc = "Pick buffer" })
+	-- 		vim.keymap.set("n", "<leader>tc", "<Cmd>BufferLinePickClose<CR>", { silent = true, desc = "Close buffer" })
+	-- 		vim.keymap.set("n", "<leader>ta", "<Cmd>%bd|e#|bd#<CR>", { silent = true, desc = "Close all buffer" })
+	-- 		vim.api.nvim_create_autocmd("BufEnter", {
+	-- 			callback = function()
+	-- 				local wins = vim.api.nvim_tabpage_list_wins(0)
+	-- 				if #wins == 1 then
+	-- 					local bufname = vim.api.nvim_buf_get_name(0)
+	-- 					if bufname:match("neo%-tree") then
+	-- 						vim.cmd("enew") -- open empty buffer
+	-- 					end
+	-- 				end
+	-- 			end,
+	-- 		})
+	-- 		require("bufferline").setup({
+	-- 			options = {
+	-- 				mode = "buffers", -- set to "tabs" to only show tabpages instead
+	-- 				numbers = "none",
+	-- 				-- Using famiu/bufdelete.nvim plugin commands to prevent messy behaviours with other plugins
+	-- 				close_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
+	-- 				right_mouse_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
+	-- 				left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
+	-- 				middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
+	-- 				-- NOTE: this plugin is designed with this icon in mind,
+	-- 				-- and so changing this is NOT recommended, this is intended
+	-- 				-- as an escape hatch for people who cannot bear it for whatever reason
+	--
+	-- 				indicator = { icon = "| ", style = "none" },
+	-- 				modified_icon = "●",
+	-- 				close_icon = "",
+	-- 				left_trunc_marker = "",
+	-- 				right_trunc_marker = "",
+	-- 				max_name_length = 18,
+	-- 				max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
+	-- 				tab_size = 18,
+	-- 				diagnostics = "nvim_lsp",
+	-- 				diagnostics_update_in_insert = false,
+	-- 				diagnostics_indicator = function(count, level, diagnostics_dict, context)
+	-- 					return "(" .. count .. ")"
+	-- 				end,
+	-- 				color_icons = true, -- whether or not to add the filetype icon highlights
+	-- 				show_buffer_icons = true, -- disable filetype icons for buffers
+	-- 				show_buffer_close_icons = true,
+	-- 				show_close_icon = true,
+	-- 				show_tab_indicators = true,
+	-- 				persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
+	-- 				-- can also be a table containing 2 custom separators
+	-- 				-- [focused and unfocused]. eg: { '|', '|' }
+	-- 				separator_style = "thin",
+	-- 				enforce_regular_tabs = false,
+	-- 				always_show_bufferline = true,
+	-- 				sort_by = "insert_after_current",
+	-- 				offsets = {
+	-- 					{
+	-- 						filetype = "neo-tree",
+	-- 						text = function()
+	-- 							return vim.fn.getcwd()
+	-- 						end,
+	-- 						highlight = "Directory",
+	-- 						text_align = "left",
+	-- 					},
+	-- 				},
+	-- 			},
+	-- 			highlights = {
+	-- 				buffer_selected = {
+	-- 					bold = true,
+	-- 					italic = false,
+	-- 				},
+	-- 				numbers_selected = {
+	-- 					bold = true,
+	-- 					italic = false,
+	-- 				},
+	-- 				close_button_selected = {},
+	-- 				diagnostic_selected = {
+	-- 					bold = true,
+	-- 					italic = false,
+	-- 				},
+	-- 				hint_selected = {
+	-- 					bold = true,
+	-- 					italic = false,
+	-- 				},
+	-- 				hint_diagnostic_selected = {
+	-- 					bold = true,
+	-- 					italic = false,
+	-- 				},
+	-- 				info_selected = {
+	-- 					bold = true,
+	-- 					italic = false,
+	-- 				},
+	-- 				info_diagnostic_selected = {
+	-- 					bold = true,
+	-- 					italic = false,
+	-- 				},
+	-- 				warning_selected = {
+	-- 					bold = true,
+	-- 					italic = false,
+	-- 				},
+	-- 				warning_diagnostic_selected = {
+	-- 					bold = true,
+	-- 					italic = false,
+	-- 				},
+	-- 				error_selected = {
+	-- 					bold = true,
+	-- 					italic = false,
+	-- 				},
+	-- 				error_diagnostic_selected = {
+	-- 					bold = true,
+	-- 					italic = false,
+	-- 				},
+	-- 				duplicate_selected = {},
+	-- 				duplicate_visible = {},
+	-- 				duplicate = {},
+	-- 				pick_selected = {
+	-- 					bold = true,
+	-- 					italic = false,
+	-- 				},
+	-- 				pick_visible = {
+	-- 					bold = true,
+	-- 					italic = false,
+	-- 				},
+	-- 				pick = {
+	-- 					bold = true,
+	-- 					italic = false,
+	-- 				},
+	-- 			},
+	-- 		})
+	-- 		vim.opt.termguicolors = true
+	-- 	end,
+	-- },
 	{
-		"akinsho/bufferline.nvim", -- to show the error and warnings in tabs UI
-		dependencies = { "kyazdani42/nvim-web-devicons", "famiu/bufdelete.nvim" },
-		config = function()
-			vim.keymap.set("n", "<leader>tp", "<Cmd>BufferLinePick<CR>", { silent = true, desc = "Pick buffer" })
-			vim.keymap.set("n", "<leader>tc", "<Cmd>BufferLinePickClose<CR>", { silent = true, desc = "Close buffer" })
-			vim.keymap.set("n", "<leader>ta", "<Cmd>%bd|e#|bd#<CR>", { silent = true, desc = "Close all buffer" })
-			vim.api.nvim_create_autocmd("BufEnter", {
-				callback = function()
-					local wins = vim.api.nvim_tabpage_list_wins(0)
-					if #wins == 1 then
-						local bufname = vim.api.nvim_buf_get_name(0)
-						if bufname:match("neo%-tree") then
-							vim.cmd("enew") -- open empty buffer
-						end
-					end
-				end,
-			})
-			require("bufferline").setup({
-				options = {
-					mode = "buffers", -- set to "tabs" to only show tabpages instead
-					numbers = "none",
-					-- Using famiu/bufdelete.nvim plugin commands to prevent messy behaviours with other plugins
-					close_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
-					right_mouse_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
-					left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
-					middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
-					-- NOTE: this plugin is designed with this icon in mind,
-					-- and so changing this is NOT recommended, this is intended
-					-- as an escape hatch for people who cannot bear it for whatever reason
+		"romgrk/barbar.nvim",
+		dependencies = {
+			"lewis6991/gitsigns.nvim", -- OPTIONAL: for git status
+			"nvim-tree/nvim-web-devicons", -- OPTIONAL: for file icons
+		},
+		init = function()
+			vim.g.barbar_auto_setup = false
 
-					indicator = { icon = "| ", style = "none" },
-					modified_icon = "●",
-					close_icon = "",
-					left_trunc_marker = "",
-					right_trunc_marker = "",
-					max_name_length = 18,
-					max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
-					tab_size = 18,
-					diagnostics = "nvim_lsp",
-					diagnostics_update_in_insert = false,
-					diagnostics_indicator = function(count, level, diagnostics_dict, context)
-						return "(" .. count .. ")"
-					end,
-					color_icons = true, -- whether or not to add the filetype icon highlights
-					show_buffer_icons = true, -- disable filetype icons for buffers
-					show_buffer_close_icons = true,
-					show_close_icon = true,
-					show_tab_indicators = true,
-					persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
-					-- can also be a table containing 2 custom separators
-					-- [focused and unfocused]. eg: { '|', '|' }
-					separator_style = "thin",
-					enforce_regular_tabs = false,
-					always_show_bufferline = true,
-					sort_by = "insert_after_current",
-					offsets = {
-						{
-							filetype = "neo-tree",
-							text = function()
-								return vim.fn.getcwd()
-							end,
-							highlight = "Directory",
-							text_align = "left",
-						},
+			local map = vim.api.nvim_set_keymap
+			local opts = { noremap = true, silent = true }
+			map("n", "<leader>tp", "<Cmd>BufferPick<CR>", opts)
+			map("n", "<leader>tc", "<Cmd>BufferPickDelete<CR>", opts)
+			map("n", "<leader>ta", "<Cmd>BufferCloseAllButCurrent<CR>", opts)
+
+			require("barbar").setup({
+				-- Set the filetypes which barbar will offset itself for
+				sidebar_filetypes = {
+					-- Use the default values: {event = 'BufWinLeave', text = '', align = 'left'}
+					NvimTree = true,
+					-- Or, specify the text used for the offset:
+					undotree = {
+						text = "undotree",
+						align = "center", -- *optionally* specify an alignment (either 'left', 'center', or 'right')
 					},
-				},
-				highlights = {
-					buffer_selected = {
-						bold = true,
-						italic = false,
-					},
-					numbers_selected = {
-						bold = true,
-						italic = false,
-					},
-					close_button_selected = {},
-					diagnostic_selected = {
-						bold = true,
-						italic = false,
-					},
-					hint_selected = {
-						bold = true,
-						italic = false,
-					},
-					hint_diagnostic_selected = {
-						bold = true,
-						italic = false,
-					},
-					info_selected = {
-						bold = true,
-						italic = false,
-					},
-					info_diagnostic_selected = {
-						bold = true,
-						italic = false,
-					},
-					warning_selected = {
-						bold = true,
-						italic = false,
-					},
-					warning_diagnostic_selected = {
-						bold = true,
-						italic = false,
-					},
-					error_selected = {
-						bold = true,
-						italic = false,
-					},
-					error_diagnostic_selected = {
-						bold = true,
-						italic = false,
-					},
-					duplicate_selected = {},
-					duplicate_visible = {},
-					duplicate = {},
-					pick_selected = {
-						bold = true,
-						italic = false,
-					},
-					pick_visible = {
-						bold = true,
-						italic = false,
-					},
-					pick = {
-						bold = true,
-						italic = false,
-					},
+					-- Or, specify the event which the sidebar executes when leaving:
+					["neo-tree"] = { event = "BufWipeout" },
+					-- Or, specify all three
+					Outline = { event = "BufWinLeave", text = "symbols-outline", align = "right" },
 				},
 			})
-			vim.opt.termguicolors = true
 		end,
+		opts = {
+			-- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
+			-- animation = true,
+			-- insert_at_start = true,
+			-- …etc.
+		},
+		-- Magic buffer-picking mode
+		version = "^1.0.0", -- optional: only update when a new 1.x version is released
 	},
 	{
 		"petertriho/nvim-scrollbar",

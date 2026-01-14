@@ -56,4 +56,7 @@ return {
 			vim.keymap.set("n", "<leader>gp", "Git push", { desc = "[G]it [P]ush" })
 		end,
 	},
+  {
+    "sindrets/diffview.nvim",
+  },
 }
