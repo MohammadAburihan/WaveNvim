@@ -35,7 +35,7 @@ return {
 			require("gitsigns").setup({
         current_line_blame = true,
       })
-
+      require("scrollbar.handlers.gitsigns").setup()
 			-- Set a vim motion to <Space> + g + h to preview changes to the file under the cursor in normal mode
 			vim.keymap.set("n", "<leader>gh", ":Gitsigns preview_hunk<CR>", { desc = "[G]it Preview [H]unk" })
 		end,
@@ -58,5 +58,10 @@ return {
 	},
   {
     "sindrets/diffview.nvim",
+    -- config = function()
+    --   keys = {
+    --       {"<leader>Dc", "<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>", desc = "DiffViewClose"},
+    --   }
+    -- end,
   },
 }

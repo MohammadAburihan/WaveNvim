@@ -13,8 +13,7 @@ return {
 	},
 	{
 		"shaunsingh/nord.nvim",
-	},
-	{
+		"rose-pine/neovim",
 		"rebelot/kanagawa.nvim",
 	},
 	{
@@ -223,18 +222,18 @@ return {
 	{
 		"petertriho/nvim-scrollbar",
 		config = function()
-			require("scrollbar").setup()
+			require("scrollbar").setup({
+				show = true,
+			})
 		end,
 	},
-	-- {
-	-- 	"karb94/neoscroll.nvim",
-	-- 	opts = {},
-	-- },
 	{ "echasnovski/mini.icons", version = false },
-	-- {
-	-- 	"nvim-mini/mini.animate",
-	-- 	config = function()
-	-- 		require("mini.animate").setup()
-	-- 	end,
-	-- },
+	{
+		"wellle/context.vim",
+    -- new alternative for nvim
+    -- "nvim-treesitter/nvim-treesitter-context",
+		init = function()
+			-- vim.g.context_enabled = 0
+		end,
+	},
 }

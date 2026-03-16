@@ -7,7 +7,7 @@ return {
 		},
 		opts = {},
 		config = function()
-			require("which-key").add({ { "<leader>a", group = "Competitive" } })
+			require("which-key").add({ { "<leader>a", group = "Stuff" } })
 		end,
 	},
 }

@@ -8,6 +8,7 @@ return {
 			"nvim-treesitter/nvim-treesitter",
 			"rcasia/neotest-java",
 			"andythigpen/nvim-coverage", -- ✅ Coverage support
+			"nvim-neotest/neotest-jest",
 		},
 		config = function()
 			require("which-key").add({ { "<leader>m", group = "Testing" } })
@@ -41,6 +42,18 @@ return {
 				adapters = {
 					require("neotest-java")({
 						ignore_wrapper = false,
+					}),
+					require("neotest-jest")({
+						jestCommand = "npm test --", -- Or "ng test" depending on setup
+						jestArguments = function(defaultArguments, context)
+							return defaultArguments
+						end,
+						jestConfigFile = "custom.jest.config.ts",
+						env = { CI = true },
+						cwd = function(path)
+							return vim.fn.getcwd()
+						end,
+						isTestFile = require("neotest-jest.jest-util").defaultIsTestFile,
 					}),
 				},
 			})

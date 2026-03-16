@@ -4,7 +4,14 @@ return {
 	-- },
 	{
 		"nvim-java/nvim-java",
+    ft = "java",
+    lazy = true,
+    dependencies = {
+      "JavaHello/spring-boot.nvim",
+      "JavaHello/java-deps.nvim",
+    },
 		config = function()
+      require("java-deps").setup({})
 			require("java").setup()
 			vim.lsp.enable("jdtls")
 			vim.lsp.config("jdtls", {

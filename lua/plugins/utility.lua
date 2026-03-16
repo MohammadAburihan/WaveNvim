@@ -104,6 +104,7 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim" },
 		cmd = { "TodoTrouble", "TodoTelescope" },
 		opts = {},
+		lazy = false,
     -- stylua: ignore
     keys = {
       { "]t",         function() require("todo-comments").jump_next() end,              desc = "Next Todo Comment" },
@@ -148,6 +149,42 @@ return {
 			config = function()
 				-- require("vim-be-good").setup()
 			end,
+		},
+	},
+	{
+		"ahkohd/context.nvim",
+		config = function()
+			local context = require("context")
+			context.setup({
+				picker = context.pickers.snacks,
+				getters = {
+					filename = {
+						desc = "Current absolute file name",
+						get = function(builtin)
+							local file = builtin.file_absolute()
+							if not file then
+								return nil
+							end
+							return vim.fs.basename(file)
+						end,
+					},
+				},
+				prompts = {
+					explain = "Explain {this}",
+					fix = "Fix the issue at {position}",
+					review = "Review {file} for issues",
+				},
+			})
+		end,
+		keys = {
+			{
+				"<leader>ac",
+				function()
+					require("context").pick()
+				end,
+				desc = "Context",
+				mode = { "n", "v" },
+			},
 		},
 	},
 }

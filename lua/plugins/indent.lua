@@ -9,13 +9,24 @@ return {
 		},
 	},
 	{
+		-- line between function scope and dots in spaces
 		"lukas-reineke/indent-blankline.nvim",
 		main = "ibl",
-		---@module "ibl"
-		---@type ibl.config
 		opts = {
 			scope = { enabled = false },
 			indent = { char = "│" },
 		},
+		-- config = function(_, opts)
+		-- 	require("ibl").setup(opts)
+		--
+		-- 	-- show spaces as dots (Neovim setting)
+		-- 	vim.opt.list = true
+		-- 	vim.opt.listchars:append({
+		-- 		space = "·",
+		-- 		trail = "·",
+		-- 		nbsp = "␣",
+		-- 	  tab = "..",
+		-- 	})
+		-- end,
 	},
 }
