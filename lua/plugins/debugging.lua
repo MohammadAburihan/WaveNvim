@@ -10,7 +10,7 @@ return {
 			"mxsdev/nvim-dap-vscode-js",
 			{
 				"microsoft/vscode-js-debug",
-				version = "1.x",
+				version = "1.112.0",
 				build = "npm i && npm run compile vsDebugServerBundle && mv dist out",
 			},
 			opts = function(_, opts)

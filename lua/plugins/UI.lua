@@ -230,10 +230,22 @@ return {
 	{ "echasnovski/mini.icons", version = false },
 	{
 		"wellle/context.vim",
-    -- new alternative for nvim
-    -- "nvim-treesitter/nvim-treesitter-context",
+		-- new alternative for nvim
+		-- "nvim-treesitter/nvim-treesitter-context",
 		init = function()
 			-- vim.g.context_enabled = 0
 		end,
+	},
+	{
+		"declancm/maximize.nvim",
+		config = true,
+		keys = {
+			{ "<leader>mw", "<cmd>Maximize<cr>", desc = "Maximize/Restore window" },
+		},
+		plugins = {
+			aerial = { enable = true }, -- enable aerial.nvim integration
+			dapui = { enable = true }, -- enable nvim-dap-ui integration
+			tree = { enable = true }, -- enable nvim-tree.lua integration
+		},
 	},
 }

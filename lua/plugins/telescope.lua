@@ -7,7 +7,7 @@ return {
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
 			vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Live grep" })
-			vim.keymap.set("n", "<leader>fr", ':Telescope oldfiles<CR>', { desc = "Recent files" })
+			vim.keymap.set("n", "<leader>fr", ":Telescope oldfiles<CR>", { desc = "Recent files" })
 			vim.keymap.set(
 				"n",
 				"<leader>fu",
@@ -75,6 +75,26 @@ return {
 			require("cheatsheet").setup({
 				vim.keymap.set("n", "<leader>cc", ":Cheatsheet<CR>", { desc = "Cheatsheet shortcuts" }),
 			})
+		end,
+	},
+	{
+		"zerochae/endpoint.nvim",
+		dependencies = {
+			-- Choose one or more pickers (all optional):
+			"nvim-telescope/telescope.nvim", -- For telescope picker
+			"folke/snacks.nvim", -- For snacks picker
+			"stevearc/dressing.nvim", -- Enhances vim.ui.select with telescope backend
+			-- vim.ui.select picker works without dependencies
+		},
+		cmd = { "Endpoint", "EndpointRefresh" },
+		config = function()
+			require("endpoint").setup({
+				-- Picker configuration
+				picker = {
+					type = "snacks", -- "telescope", "vim_ui_select", "snacks"
+				},
+			})
+      vim.g.endpoint_debug = true
 		end,
 	},
 }

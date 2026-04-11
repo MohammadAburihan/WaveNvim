@@ -59,7 +59,7 @@ return {
 				-- },
 			})
 
-			vim.keymap.set({ "n", "v" }, "<leader>ft", function()
+			vim.keymap.set({ "n", "v" }, "<leader>fv", function()
 				conform.format({
 					-- lsp_fallback = function(bufnr)
 					-- 	-- Disable fallback for HTML

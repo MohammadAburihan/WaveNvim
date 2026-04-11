@@ -47,6 +47,10 @@ return {
 			dashboard = {
 				preset = {
 					header = headerNeoVimLazy,
+					pick = function(cmd, opts)
+						local builtin_cmd = cmd == "files" and "find_files" or cmd
+						require("telescope.builtin")[builtin_cmd](opts)
+					end,
           -- stylua: ignore
           ---@type snacks.dashboard.Item[]
           keys = {

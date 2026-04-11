@@ -7,6 +7,7 @@ end
 -- all key mapping write in here
 vim.keymap.set("n", "<C-K>", "k<C-Y>", { noremap = true, silent = true })
 vim.keymap.set("n", "<C-J>", "j<C-E>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>xd", vim.diagnostic.open_float, { desc = "Open floating diagnostic message" })
 
 vim.api.nvim_create_autocmd("FileType", {
 	pattern = "java",
@@ -40,6 +41,8 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 wk.add({
+  -- LSP & Code Action
+  { "<leader>c", group = "LSP & Code Action" },
 	-- Debug
 	{ "<leader>d", group = "Debug" },
 	{ "<leader>dR", "<cmd>lua require'dap'.run()<cr>", desc = "[DAP] Run" },
