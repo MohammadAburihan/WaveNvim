@@ -13,11 +13,6 @@ return {
 				version = "1.112.0",
 				build = "npm i && npm run compile vsDebugServerBundle && mv dist out",
 			},
-			opts = function(_, opts)
-				opts.ensure_installed = opts.ensure_installed or {}
-				table.insert(opts.ensure_installed, "java-debug-adapter")
-				table.insert(opts.ensure_installed, "java-test")
-			end,
 		},
 		config = function()
 			require("dapui").setup()
@@ -31,16 +26,14 @@ return {
 				debugger_path = vim.fn.stdpath("data") .. "/lazy/vscode-js-debug",
 				adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
 			})
-			dap.adapters = {
-				["pwa-node"] = {
-					type = "server",
-					host = "localhost",
-					port = 8123,
-					executable = {
-						command = "js-debug-adapter",
-						args = {
-							"8123",
-						},
+			dap.adapters["pwa-node"] = {
+				type = "server",
+				host = "localhost",
+				port = 8123,
+				executable = {
+					command = "js-debug-adapter",
+					args = {
+						"8123",
 					},
 				},
 			}
@@ -87,6 +80,15 @@ return {
 					webRoot = "${workspaceFolder}/src",
 					-- skip files from vite's hmr
 					skipFiles = { "**/node_modules/**/*", "**/@vite/*", "**/src/client/*", "**/src/*" },
+				},
+				{
+					type = "pwa-chrome",
+					name = "Debug Angular (Chrome)",
+					request = "launch",
+					url = "http://localhost:4200",
+					sourceMaps = true,
+					webRoot = "${workspaceFolder}/src",
+					skipFiles = { "**/node_modules/**/*" },
 				},
 				{
 					type = "pwa-node",
@@ -183,20 +185,11 @@ return {
 					cwd = "${workspaceFolder}",
 				},
 			}
-			dap.configurations.java = {
-				{
-					type = "java",
-					request = "attach",
-					name = "Debug (Attach) - Remote",
-					hostName = "127.0.0.1",
-					port = 5005,
-				},
-			}
-			dap.adapters.java = {
-				type = "server",
-				host = "127.0.0.1",
-				port = 5005,
-			}
+			-- Java DAP configurations are managed by nvim-java plugin.
+			-- Use <leader>dm in a Java file to configure DAP after jdtls is ready.
+
+			-- dap.adapters.java is registered automatically by nvim-java.
+			-- Do NOT define it manually here.
 
 			dap.listeners.before.attach.dapui_config = function()
 				dapui.open()

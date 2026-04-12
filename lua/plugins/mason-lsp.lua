@@ -43,9 +43,9 @@ return {
 					"jdtls",
 					"html",
 				},
-				-- handlers = {
-				-- 	jdtls = function() end,
-				-- },
+				handlers = {
+					jdtls = function() end,
+				},
 			})
 		end,
 	},

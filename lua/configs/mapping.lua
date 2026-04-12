@@ -41,6 +41,8 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 wk.add({
+  -- AI
+  { "<leader>a", group = "AI/Claude Code" },
   -- LSP & Code Action
   { "<leader>c", group = "LSP & Code Action" },
 	-- Debug

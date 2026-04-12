@@ -5,112 +5,25 @@ vim.bo.tabstop = 4 -- Number of spaces a tab counts for
 vim.bo.softtabstop = 4 -- Spaces inserted/deleted with Tab/BS
 vim.bo.smartindent = true -- Enable smart indenting
 vim.bo.autoindent = true -- Auto-indent new lines
--- local config = {
--- 	cmd = { vim.fn.expand("/Users/mohammadrehan/.local/share/nvim/mason/bin/jdtls") },
--- 	root_dir = vim.fs.dirname(vim.fs.find({ "gradlew", ".git", "mvnw" }, { upward = true })[1]),
--- }
--- require("jdtls").start_or_attach(config)
---
---
---
-local home = os.getenv("HOME")
-local workspace_path = home .. "/.local/share/nvim/jdtls-workspace/"
-local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
-local workspace_dir = workspace_path .. project_name
--- local path_to_java_dap =
--- 	"/Users/mohammadrehan/.m2/repository/com/microsoft/java/com.microsoft.java.debug.plugin/0.53.2/com.microsoft.java.debug.plugin-0.53.2.jar"
--- local path_to_java_dap = "/Users/mohammadrehan/Downloads/java-debug-main/com.microsoft.java.debug.plugin/target"
 
-local cwd = vim.fn.getcwd()
+-- jdtls is managed by nvim-java plugin (lua/plugins/java.lua)
+-- Use LSP code actions for refactoring (organize imports, extract variable, etc.)
+-- These are all available via <leader>ca (code action)
 
-local java_path = "java" -- default
+vim.keymap.set("n", "<leader>co", function()
+	vim.lsp.buf.code_action({
+		context = { only = { "source.organizeImports" } },
+		apply = true,
+	})
+end, { desc = "Organize Imports", buffer = true })
 
-if cwd:find("Apple") then
-	-- java_path = "/Library/Java/JavaVirtualMachines/applejdk-17.0.14.7.3.jdk/Contents/Home/bin/java"
-	java_path = "/Library/Java/JavaVirtualMachines/applejdk-17.0.16.8.1.jdk/Contents/Home"
-end
-
-local status, jdtls = pcall(require, "jdtls")
-if not status then
-	print("there is no jdtls")
-	return
-end
-local extendedClientCapabilities = jdtls.extendedClientCapabilities
-
-local config = {
-	cmd = {
-		java_path,
-		"-Declipse.application=org.eclipse.jdt.ls.core.id1",
-		"-Dosgi.bundles.defaultStartLevel=4",
-		"-Declipse.product=org.eclipse.jdt.ls.core.product",
-		"-Dlog.protocol=true",
-		"-Dlog.level=ALL",
-		"-Xmx1g",
-		"--add-modules=ALL-SYSTEM",
-		"--add-opens",
-		"java.base/java.util=ALL-UNNAMED",
-		"--add-opens",
-		"java.base/java.lang=ALL-UNNAMED",
-		"-javaagent:" .. home .. "/.local/share/nvim/mason/packages/jdtls/lombok.jar",
-		"-jar",
-		vim.fn.glob(home .. "/.local/share/nvim/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_*.jar"),
-		"-configuration",
-		home .. "/.local/share/nvim/mason/packages/jdtls/config_mac",
-		"-data",
-		workspace_dir,
-	},
-	root_dir = require("jdtls.setup").find_root({ ".git", "mvnw", "gradlew", "pom.xml", "build.gradle" }),
-
-	settings = {
-		java = {
-			signatureHelp = { enabled = true },
-			extendedClientCapabilities = extendedClientCapabilities,
-			maven = {
-				downloadSources = true,
-			},
-			referencesCodeLens = {
-				enabled = true,
-			},
-			references = {
-				includeDecompiledSources = true,
-			},
-			inlayHints = {
-				parameterNames = {
-					enabled = "all", -- literals, all, none
-				},
-			},
-			format = {
-				enabled = true,
-			},
-		},
-	},
-
-	init_options = {
-		bundles = {
-			"Users/mohammadrehan/Downloads/java-debug-main/com.microsoft.java.debug.plugin/target/com.microsoft.java.debug.plugin-0.53.2.jar",
-		},
-	},
-}
-jdtls.start_or_attach(config)
-
-vim.keymap.set("n", "<leader>co", "<Cmd>lua require'jdtls'.organize_imports()<CR>", { desc = "Organize Imports" })
-vim.keymap.set("n", "<leader>crv", "<Cmd>lua require('jdtls').extract_variable()<CR>", { desc = "Extract Variable" })
-vim.keymap.set(
-	"v",
-	"<leader>crv",
-	"<Esc><Cmd>lua require('jdtls').extract_variable(true)<CR>",
-	{ desc = "Extract Variable" }
-)
-vim.keymap.set("n", "<leader>crc", "<Cmd>lua require('jdtls').extract_constant()<CR>", { desc = "Extract Constant" })
-vim.keymap.set(
-	"v",
-	"<leader>crc",
-	"<Esc><Cmd>lua require('jdtls').extract_constant(true)<CR>",
-	{ desc = "Extract Constant" }
-)
-vim.keymap.set(
-	"v",
-	"<leader>crm",
-	"<Esc><Cmd>lua require('jdtls').extract_method(true)<CR>",
-	{ desc = "Extract Method" }
-)
+-- Configure DAP for Java debugging (via nvim-java)
+vim.keymap.set("n", "<leader>dm", function()
+	local ok, java = pcall(require, "java")
+	if ok and java.dap then
+		java.dap.config_dap()
+		vim.notify("Configured Java DAP", vim.log.levels.INFO)
+	else
+		vim.notify("nvim-java DAP not available", vim.log.levels.WARN)
+	end
+end, { desc = "Configure Java DAP", buffer = true })

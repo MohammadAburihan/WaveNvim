@@ -13,7 +13,8 @@ return {
 		config = function()
       require("java-deps").setup({})
 			require("java").setup()
-			vim.lsp.enable("jdtls")
+
+			-- Config MUST come before enable for settings to apply
 			vim.lsp.config("jdtls", {
 				settings = {
 					java = {
@@ -28,6 +29,26 @@ return {
 						},
 					},
 				},
+			})
+			vim.lsp.enable("jdtls")
+
+			-- Auto-configure DAP when jdtls finishes initializing
+			vim.api.nvim_create_autocmd("LspAttach", {
+				callback = function(args)
+					local client = vim.lsp.get_client_by_id(args.data.client_id)
+					if client and client.name == "jdtls" then
+						-- Wait for jdtls to finish indexing before configuring DAP
+						vim.defer_fn(function()
+							local ok, java = pcall(require, "java")
+							if ok and java.dap then
+								local dap_ok, err = pcall(java.dap.config_dap)
+								if dap_ok then
+									vim.notify("Java DAP configured", vim.log.levels.INFO)
+								end
+							end
+						end, 5000)
+					end
+				end,
 			})
 		end,
 	},
