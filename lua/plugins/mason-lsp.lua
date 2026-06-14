@@ -68,6 +68,9 @@ return {
 			vim.keymap.set({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, { desc = "Code action" })
 			vim.keymap.set("n", "<leader>lD", vim.lsp.buf.declaration, { desc = "lsp declaration" })
 			vim.keymap.set("n", "<leader>ld", vim.lsp.buf.definition, { desc = "lsp Definition" })
+			vim.keymap.set("n", "<leader>li", function()
+				Snacks.picker.lsp_implementations()
+			end, { desc = "lsp Implementation" })
 		end,
 	},
 	{

@@ -42,6 +42,9 @@ return {
 				adapters = {
 					require("neotest-java")({
 						ignore_wrapper = false,
+						jvm_args = {
+							"-Dspring.profiles.active=integration-test",
+						},
 					}),
 					require("neotest-jest")({
 						jestCommand = "npm test --", -- Or "ng test" depending on setup

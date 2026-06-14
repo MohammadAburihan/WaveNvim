@@ -7,19 +7,76 @@ return {
 		config = function()
 			require("catppuccin").setup({
 				no_italic = true,
+				-- custom_highlights = function(colors)
+				-- 	return {
+				-- 		WinSeparator = { fg = colors.overlay1 },
+				-- 		BlinkCmpDocBorder = { fg = colors.blue },
+				-- 		BlinkCmpKind = { fg = colors.blue },
+				-- 		BlinkCmpMenu = { fg = colors.text },
+				-- 		BlinkCmpMenuBorder = { fg = colors.blue, bg = colors.base },
+				-- 		BlinkCmpSignatureHelpActiveParameter = { fg = colors.mauve },
+				-- 		BlinkCmpSignatureHelpBorder = { fg = colors.blue },
+				-- 	}
+				-- end,
+				-- floating_border = "on",
+				-- integrations = {
+				-- 	blink_cmp = true,
+				-- },
+				--
+				--
+				--
+				--
+				--
+				-- we need from here
+				-- custom_highlights = function(colors)
+				-- 	return {
+				-- 		LineNr = {
+				-- 			fg = colors.overlay0,
+				-- 			bg = "#181616",
+				-- 		},
+				--
+				-- 		CursorLineNr = {
+				-- 			fg = colors.yellow,
+				-- 			bg = "#181616",
+				-- 			bold = true,
+				-- 		},
+				--
+				-- 		SignColumn = {
+				-- 			bg = "#181616",
+				-- 		},
+				-- 	}
+				-- end,
+				-- color_overrides = {
+				-- 	mocha = {
+				-- 		base = "#000000",
+				-- 		mantle = "#000000",
+				-- 		-- crust = "#000000",
+				-- 	},
+				-- },
+				-- transparent_background = true,
+				custom_highlights = function(colors)
+					return {
+						Normal = { bg = "#15151f" }, -- editor background darker
+						NormalNC = { bg = "#15151f" }, -- unfocused editor windows
+					}
+				end,
 			})
 			vim.cmd.colorscheme("catppuccin")
 		end,
 	},
+	{ "shaunsingh/nord.nvim" },
+	{ "rose-pine/neovim", name = "rose-pine" },
 	{
-		"shaunsingh/nord.nvim",
-		"rose-pine/neovim",
 		"rebelot/kanagawa.nvim",
-	},
-	{
-		"folke/tokyonight.nvim",
 		lazy = false,
 		priority = 1000,
+		config = function()
+			-- vim.cmd.colorscheme("kanagawa-dragon")
+		end,
+	},
+	{ "EdenEast/nightfox.nvim" },
+	{
+		"folke/tokyonight.nvim",
 		opts = {},
 	},
 	{

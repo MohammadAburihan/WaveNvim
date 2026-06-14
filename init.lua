@@ -17,6 +17,9 @@ vim.opt.rtp:prepend(lazypath)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+-- Enable 24-bit RGB colors BEFORE plugins load (needed for Catppuccin)
+vim.opt.termguicolors = true
+
 local opts = {}
 require("lazy").setup("plugins")
 

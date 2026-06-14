@@ -6,14 +6,20 @@ return {
 		config = function()
 			local builtin = require("telescope.builtin")
 			vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Find files" })
-			vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Live grep" })
+			vim.keymap.set("n", "<leader>fg", function()
+				Snacks.picker.grep({
+					win = {
+						preview = {
+							title = "{preview}",
+							title_pos = "center",
+						},
+					},
+				})
+			end, { desc = "Live grep" })
 			vim.keymap.set("n", "<leader>fr", ":Telescope oldfiles<CR>", { desc = "Recent files" })
-			vim.keymap.set(
-				"n",
-				"<leader>fu",
-				':lua require("telescope.builtin").lsp_references()<CR>',
-				{ noremap = true, silent = true }
-			)
+			vim.keymap.set("n", "<leader>fu", function()
+				Snacks.picker.lsp_references()
+			end, { desc = "LSP references" })
 			vim.keymap.set(
 				"n",
 				"<leader>fe",
@@ -93,8 +99,11 @@ return {
 				picker = {
 					type = "snacks", -- "telescope", "vim_ui_select", "snacks"
 				},
+				cache = {
+					mode = "persistent", -- "none", "session", "persistent"
+				},
 			})
-      vim.g.endpoint_debug = true
+			vim.g.endpoint_debug = true
 		end,
 	},
 }

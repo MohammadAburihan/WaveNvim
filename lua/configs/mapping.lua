@@ -74,6 +74,6 @@ wk.add({
 
 	-- Jumps/Marks
 	{ "<leader>j", group = "[Jumps]" },
-	{ "<leader>jk", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", desc = "[HARPOON] Show quick menu" },
-	{ "<leader>ja", "<cmd>lua require('harpoon.mark').add_file()<cr>", desc = "[HARPOON] Add file" },
+	-- { "<leader>jf", "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", desc = "[HARPOON] Show quick menu" },
+	-- { "<leader>ja", "<cmd>lua require('harpoon.mark').add_file()<cr>", desc = "[HARPOON] Add file" },
 })

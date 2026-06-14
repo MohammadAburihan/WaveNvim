@@ -11,18 +11,29 @@ return {
       "JavaHello/java-deps.nvim",
     },
 		config = function()
+			vim.env.JAVA_HOME = "/Library/Java/JavaVirtualMachines/applejdk-21.0.0.35.1.jdk/Contents/Home"
+
       require("java-deps").setup({})
 			require("java").setup()
 
 			-- Config MUST come before enable for settings to apply
 			vim.lsp.config("jdtls", {
+				-- jdtls 1.58+ requires Java 21 to launch the server itself.
+				-- Why: brew jdtls bumped its minimum runtime; JDK 17 is still fine for project code.
+				cmd_env = {
+					JAVA_HOME = "/Library/Java/JavaVirtualMachines/applejdk-21.0.0.35.1.jdk/Contents/Home",
+				},
 				settings = {
 					java = {
 						configuration = {
 							runtimes = {
+								-- {
+								-- 	name = "Apple-JavaSE-17.0.16",
+								-- 	path = "/Library/Java/JavaVirtualMachines/applejdk-17.0.16.8.1.jdk/Contents/Home",
+								-- },
 								{
-									name = "Apple-JavaSE-17.0.16",
-									path = "/Library/Java/JavaVirtualMachines/applejdk-17.0.16.8.1.jdk/Contents/Home",
+									name = "JavaSE-21",
+									path = "/Library/Java/JavaVirtualMachines/applejdk-21.0.0.35.1.jdk/Contents/Home",
 									default = true,
 								},
 							},

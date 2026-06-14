@@ -44,12 +44,20 @@ return {
 				hidden = true,
 			})
 
+			-- pcall guards a benign error from gitsigns' :Gitsigns blame
+			-- sync_cursors autocmd: when the float closes and focus returns to
+			-- the source buffer, gitsigns tries to restore a saved cursor line
+			-- that may be past the new buffer's end. See blame.lua:347.
 			function _HORIZONTAL_TOGGLE()
-				horizontal:toggle()
+				pcall(function()
+					horizontal:toggle()
+				end)
 			end
 
 			function _FLOAT_TOGGLE()
-				floating:toggle()
+				pcall(function()
+					floating:toggle()
+				end)
 			end
 
 			-- Normal mode mappings
@@ -82,32 +90,59 @@ return {
 				current_line_blame = true,
 			})
 			require("scrollbar.handlers.gitsigns").setup()
-			-- Set a vim motion to <Space> + g + h to preview changes to the file under the cursor in normal mode
-			vim.keymap.set("n", "<leader>gh", ":Gitsigns preview_hunk<CR>", { desc = "[G]it Preview [H]unk" })
-		end,
-	},
-	{
-		"tpope/vim-fugitive",
-		config = function()
 			require("which-key").add({ { "<leader>g", group = "Git" } })
-			-- Set a vim motion to <Space> + g + b to view the most recent contributers to the file
-			vim.keymap.set("n", "<leader>gb", ":Git blame<cr>", { desc = "[G]it [B]lame" })
-			-- Set a vim motion to <Space> + g + <Shift>A to all files changed to the staging area
-			vim.keymap.set("n", "<leader>gA", ":Git add .<cr>", { desc = "[G]it Add [A]ll" })
-			-- Set a vim motion to <Space> + g + a to add the current file and changes to the staging area
-			vim.keymap.set("n", "<leader>ga", "Git add", { desc = "[G]it [A]dd" })
-			-- Set a vim motion to <Space> + g + c to commit the current chages
-			vim.keymap.set("n", "<leader>gc", ":Git commit", { desc = "[G]it [C]ommit" })
-			-- Set a vim motion to <Space> + g + p to push the commited changes to the remote repository
-			vim.keymap.set("n", "<leader>gp", "Git push", { desc = "[G]it [P]ush" })
+			require("which-key").add({ { "<leader>gh", group = "Git [H]unk" } })
+			require("which-key").add({ { "<leader>gb", group = "Git [B]lame" } })
+			vim.keymap.set("n", "<leader>ghr", ":Gitsigns reset_hunk<CR>", { desc = "[G]it [R]eset Hunk" })
+			vim.keymap.set("n", "<leader>ghh", ":Gitsigns preview_hunk<CR>", { desc = "[G]it Preview [H]unk" })
+			vim.keymap.set("n", "<leader>ghi", ":Gitsigns preview_hunk_inline<CR>", { desc = "[G]it Preview [H]unk Inline" })
+			vim.keymap.set("n", "<leader>gbb", ":Gitsigns blame<CR>", { desc = "[G]it [B]lame" })
+			vim.keymap.set("n", "<leader>gbl", ":Gitsigns blame_line<CR>", { desc = "[G]it [B]lame Line" })
 		end,
 	},
 	{
 		"sindrets/diffview.nvim",
-		-- config = function()
-		--   keys = {
-		--       {"<leader>Dc", "<cmd>set hidden<cr><cmd>DiffviewClose<cr><cmd>set nohidden<cr>", desc = "DiffViewClose"},
-		--   }
-		-- end,
+		config = function()
+			-- :DiffviewClose runs :tabclose, which raises E445 ("Other window
+			-- contains changes") when a diff window holds a modified buffer that
+			-- can't be abandoned. Forcing 'hidden' on lets such buffers be hidden
+			-- instead of blocking the close, and clearing the modified flag on
+			-- diffview's own throwaway buffers (git index/HEAD views) covers the
+			-- rest. Together they make the close succeed every time.
+			local function safe_close()
+				vim.o.hidden = true
+				for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+					local buf = vim.api.nvim_win_get_buf(win)
+					local name = vim.api.nvim_buf_get_name(buf)
+					if name:match("^diffview://") or name:find("/.git/", 1, true) then
+						pcall(function()
+							vim.bo[buf].modified = false
+						end)
+					end
+				end
+				vim.cmd("DiffviewClose")
+			end
+
+			require("diffview").setup({
+				hooks = {
+					view_opened = function()
+						vim.o.hidden = true
+					end,
+				},
+				keymaps = {
+					view = {
+						{ "n", "q", safe_close, { desc = "Close Diffview" } },
+					},
+					file_panel = {
+						{ "n", "q", safe_close, { desc = "Close Diffview" } },
+					},
+				},
+			})
+
+			require("which-key").add({ { "<leader>gd", group = "Diff View" } })
+			vim.keymap.set("n", "<leader>gdo", "<cmd>DiffviewOpen<cr>", { desc = "Diff View Open" })
+			vim.keymap.set("n", "<leader>gdc", safe_close, { desc = "Diff View Close" })
+			vim.keymap.set("n", "<leader>gdh", "<cmd>DiffviewFileHistory %<cr>", { desc = "Diff File History" })
+		end,
 	},
 }
